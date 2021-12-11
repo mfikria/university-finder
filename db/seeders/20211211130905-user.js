@@ -4,7 +4,7 @@ module.exports = {
     const password = await bcrypt.hashSync('test', 10)
     return queryInterface.bulkInsert('Users', [
       {
-        email: 'root@root.com',
+        email: 'test@test.com',
         password,
         createdAt: new Date(),
         updatedAt: new Date(),

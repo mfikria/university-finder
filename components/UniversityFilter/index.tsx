@@ -49,7 +49,6 @@ const UniversityFilter = ({
           </Button>
         </Col>
       </Row>
-      <Row></Row>
     </Form>
   )
 }

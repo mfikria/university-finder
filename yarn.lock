@@ -624,11 +624,6 @@
   resolved "https://registry.npmjs.org/@napi-rs/triples/-/triples-1.0.3.tgz#76d6d0c3f4d16013c61e45dfca5ff1e6c31ae53c"
   integrity sha512-jDJTpta+P4p1NZTFVLHJ/TLFVYVcOqv6l8xwOeBKNPMgY/zDYH/YH7SJbvrr/h1RcS9GzbPcLKGzpuK9cV56UA==
 
-"@next-auth/sequelize-adapter@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/@next-auth/sequelize-adapter/-/sequelize-adapter-1.0.1.tgz#b4d782fc63bfed7876467fe06a5fada20ee74226"
-  integrity sha512-KxrwFYEPkGtmRPSD0yC9X4CQ9mFl8bk+/d5xGBzJQnj0RVGQ3/PAtLWSIOVSFRo9fR0Mb+kLM2+WG/dbfIYO5A==
-
 "@next/env@12.0.7":
   version "12.0.7"
   resolved "https://registry.npmjs.org/@next/env/-/env-12.0.7.tgz#316f7bd1b6b69f554d2676cfc91a16bc7e32ee79"
