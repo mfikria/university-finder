@@ -3,3 +3,15 @@
   z-index: 1;
   width: 100%;
 }
+
+.accountMenu {
+  color: white;
+  user-select: none;
+
+  :global .ant-avatar {
+    margin-right: 8px;
+  }
+  a {
+    color: white;
+  }
+}
