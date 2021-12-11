@@ -17,7 +17,7 @@ import { useRouter } from 'next/router'
 
 const UniversityList: NextComponentType = () => {
   const router = useRouter()
-  const [sortBy, setSortBy] = useState<SortBy>(SortBy.DEFAULT)
+  const [sortBy, setSortBy] = useState<SortBy>(SortBy.NAME)
   const [sortType, setSortType] = useState<string>('asc')
 
   const {
@@ -67,7 +67,6 @@ const UniversityList: NextComponentType = () => {
           value={sortBy as any}
           onChange={setSortBy as any}
         >
-          <Select.Option value={SortBy.DEFAULT}>Default</Select.Option>
           <Select.Option value={SortBy.NAME}>Name</Select.Option>
           <Select.Option value={SortBy.COUNTRY}>Country</Select.Option>
         </Select>

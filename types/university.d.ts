@@ -18,7 +18,6 @@ export type University = {
 }
 
 export enum SortBy {
-  DEFAULT = '',
   NAME = 'name',
   COUNTRY = 'country',
 }
