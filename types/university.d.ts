@@ -3,6 +3,11 @@ export type UniversityFilterType = {
   country: string
 }
 
+export type UniversitySortType = {
+  field: string
+  type: 'desc' | 'asc'
+}
+
 export type University = {
   alpha_two_code: string
   country: string
@@ -10,4 +15,10 @@ export type University = {
   name: string
   'state-province': string | null
   web_pages: string[]
+}
+
+export enum SortBy {
+  DEFAULT = '',
+  NAME = 'name',
+  COUNTRY = 'country',
 }

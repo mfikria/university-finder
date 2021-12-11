@@ -1,6 +1,11 @@
+import orderBy from 'lodash/orderBy'
 import axios from 'axios'
 import { useState } from 'react'
-import { University, UniversityFilterType } from '../types/university'
+import {
+  University,
+  UniversityFilterType,
+  UniversitySortType,
+} from '../types/university'
 
 const UNIVERSITY_API_URL = 'http://universities.hipolabs.com/search'
 
@@ -11,18 +16,34 @@ export const useUniversities = () => {
     []
   )
 
-  const fetchUniversities = async (filter?: UniversityFilterType) => {
+  const fetchUniversities = async (
+    filter?: UniversityFilterType,
+    sort: UniversitySortType = { field: '', type: 'asc' }
+  ) => {
     try {
       setLoading(true)
       const { data } = await axios.get(UNIVERSITY_API_URL, { params: filter })
-      setUniversities(data)
+      const sortedUniversities: University[] = orderBy(
+        data,
+        [sort.field],
+        [sort.type]
+      )
+      setUniversities(sortedUniversities)
       // set initial visible data
-      setVisibleUniversities(data.slice(0, 20))
+      setVisibleUniversities(sortedUniversities.slice(0, 20))
     } catch (err) {
       setUniversities([])
     } finally {
       setLoading(false)
     }
+  }
+
+  const sortUniversities = (
+    sort: UniversitySortType = { field: '', type: 'asc' }
+  ) => {
+    const sortedUniversities = orderBy(universities, [sort.field], [sort.type])
+    setUniversities(sortedUniversities)
+    setVisibleUniversities(sortedUniversities.slice(0, 20))
   }
 
   const loadMoreUniversities = () => {
@@ -37,5 +58,6 @@ export const useUniversities = () => {
     fetchUniversities,
     loadMoreUniversities,
     visibleUniversities,
+    sortUniversities,
   }
 }
