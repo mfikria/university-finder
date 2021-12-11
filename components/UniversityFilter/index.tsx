@@ -21,7 +21,7 @@ const UniversityFilter = ({
         value: router.query.country || '',
       },
     ])
-  }, [form, router])
+  }, [router])
 
   return (
     <Form form={form} className={styles.form} onFinish={onSubmit}>

@@ -23,7 +23,7 @@ const UniversityList: NextComponentType = () => {
 
   useEffect(() => {
     fetchUniversities(router.query as UniversityFilterType)
-  }, [router, fetchUniversities])
+  }, [router])
 
   const loader = <Skeleton paragraph={{ rows: 1 }} active />
   const endMessage =
