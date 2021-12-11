@@ -1,0 +1,14 @@
+.scrollableList {
+  height: calc(100vh - 110px);
+  overflow: auto;
+  padding: 0 16px;
+  border: 1px solid rgba(140, 140, 140, 0.35);
+}
+
+.universityDescription, .universityWebsite {
+  display: flex;
+  align-items: center;
+  svg {
+    margin-right: 4px;
+  }
+}

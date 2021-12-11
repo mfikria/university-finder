@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import { Layout, Menu, Breadcrumb } from 'antd'
 import styles from './index.module.scss'
+import UniversityList from '../components/UniversityList'
 
 const { Header, Content, Footer } = Layout
 
@@ -15,9 +16,10 @@ const Home: NextPage = () => {
         </Menu>
       </Header>
       <Content className={styles.siteLayout}>
-        <div className={styles.siteLayoutBackground}>Content</div>
+        <div className={styles.siteLayoutBackground}>
+          <UniversityList />
+        </div>
       </Content>
-      <Footer className={styles.siteFooter}>©2021 Created by mfikria</Footer>
     </Layout>
   )
 }
