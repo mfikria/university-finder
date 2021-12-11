@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.ant-layout {
+  min-height: 100vh !important;
+}
