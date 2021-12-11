@@ -20,14 +20,17 @@ const UniversityList: NextComponentType = () => {
     fetchUniversities()
   }, [])
 
+  const loader = <Skeleton paragraph={{ rows: 1 }} active />
+  const endMessage = loading ? null : <Divider plain>No more data 😎</Divider>
+
   return (
     <div id="scrollableList" className={styles.scrollableList}>
       <InfiniteScroll
         dataLength={visibleUniversities.length}
         next={loadMoreUniversities}
         hasMore={visibleUniversities.length < total}
-        loader={<Skeleton paragraph={{ rows: 1 }} active />}
-        endMessage={<Divider plain>No more data 😎</Divider>}
+        loader={loader}
+        endMessage={endMessage}
         scrollableTarget="scrollableList"
       >
         <List
