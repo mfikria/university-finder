@@ -1,9 +1,13 @@
 import type { NextComponentType } from 'next'
 import trim from 'lodash/trim'
 import React, { useEffect, useState } from 'react'
-import { List, Skeleton, Divider, Select } from 'antd'
+import { List, Skeleton, Divider, Select, Button } from 'antd'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { BsFillGeoAltFill, BsBoxArrowUpRight } from 'react-icons/bs'
+import {
+  BsFillGeoAltFill,
+  BsBoxArrowUpRight,
+  BsFillStarFill,
+} from 'react-icons/bs'
 import { useUniversities } from '../../hooks/university'
 import styles from './style.module.scss'
 import {
@@ -14,8 +18,10 @@ import {
 } from '../../types/university.d'
 import UniversityFilter from '../UniversityFilter'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 
 const UniversityList: NextComponentType = () => {
+  const { data: session } = useSession()
   const router = useRouter()
   const [sortBy, setSortBy] = useState<SortBy>(SortBy.NAME)
   const [sortType, setSortType] = useState<string>('asc')
@@ -88,25 +94,35 @@ const UniversityList: NextComponentType = () => {
             loading={loading}
             dataSource={visibleUniversities}
             renderItem={(university: University) => {
-              const description = (
-                <div className={styles.universityDescription}>
-                  <BsFillGeoAltFill />
-                  {university.country}
-                </div>
-              )
               const website = university.web_pages[0]
-              return (
-                <List.Item>
-                  <List.Item.Meta
-                    title={university.name}
-                    description={description}
-                  />
+              const description = (
+                <>
+                  <div className={styles.universityDescription}>
+                    <BsFillGeoAltFill />
+                    {university.country}
+                  </div>
                   <div className={styles.universityWebsite}>
                     <BsBoxArrowUpRight />
                     <a href={website} target="_blank" rel="noreferrer">
                       {website}
                     </a>
                   </div>
+                </>
+              )
+              return (
+                <List.Item>
+                  <List.Item.Meta
+                    title={university.name}
+                    description={description}
+                  />
+                  <Button
+                    disabled={!session}
+                    className={styles.favoriteButton}
+                    size="small"
+                    icon={<BsFillStarFill />}
+                  >
+                    Add to Favorite
+                  </Button>
                 </List.Item>
               )
             }}
