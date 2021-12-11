@@ -29,7 +29,6 @@ const Subscription: NextPage = () => {
           >
             <Form.Item
               name={'email'}
-              label="Email"
               rules={[
                 {
                   required: true,

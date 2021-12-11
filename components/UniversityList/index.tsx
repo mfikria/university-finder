@@ -69,6 +69,7 @@ const UniversityList: NextComponentType = () => {
       <div className={styles.listHeader}>
         <div>Sort By:</div>
         <Select
+          size="small"
           className={styles.sortBy}
           value={sortBy as any}
           onChange={setSortBy as any}
@@ -76,7 +77,11 @@ const UniversityList: NextComponentType = () => {
           <Select.Option value={SortBy.NAME}>Name</Select.Option>
           <Select.Option value={SortBy.COUNTRY}>Country</Select.Option>
         </Select>
-        <Select value={sortType as any} onChange={setSortType as any}>
+        <Select
+          size="small"
+          value={sortType as any}
+          onChange={setSortType as any}
+        >
           <Select.Option value="desc">DESC</Select.Option>
           <Select.Option value="asc">ASC</Select.Option>
         </Select>

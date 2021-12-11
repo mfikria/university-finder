@@ -1,5 +1,20 @@
+@import "styles/mixins";
+
 .form {
   margin-bottom: 8px;
+  :global .ant-row {
+    flex-wrap: nowrap;
+  }
+
+  :global .ant-input-prefix {
+    margin-right: 8px;
+  }
+  :global .ant-col {
+    max-width: unset;
+    &:not(:last-child) {
+      flex: 1 1 100%;
+    }
+  }
 }
 
 .formItem {
@@ -14,9 +29,39 @@
   }
 }
 
-.formFooter {
-  text-align: right;
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+  flex: 1 1 auto;
   button {
-    margin-left: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 32px;
+
+    svg {
+      height: 24px;
+      width: 24px;
+    }
+
+    :global .ant-btn span {
+      padding-left: 4px;
+    }
+  }
+}
+
+
+@include mobile {
+  .formActions {
+    flex: 0 0 32px;
+
+    :global .ant-btn {
+      margin-left: 8px;
+      padding: 0 !important;
+    }
+    :global .ant-btn span {
+      display: none;
+    }
   }
 }

@@ -3,6 +3,8 @@ import { Form, Row, Col, Input, Button } from 'antd'
 import styles from './style.module.scss'
 import { useRouter } from 'next/router'
 import { UniversityFilterType } from '../../types/university'
+import { BsBank, BsGeoAlt } from 'react-icons/bs'
+import { AiOutlineSearch, AiOutlineClose } from 'react-icons/ai'
 
 const UniversityFilter = ({
   onSubmit = (_filter: UniversityFilterType) => {},
@@ -25,27 +27,20 @@ const UniversityFilter = ({
 
   return (
     <Form form={form} className={styles.form} onFinish={onSubmit}>
-      <Row gutter={24} align="bottom">
+      <Row gutter={8} align="bottom">
         <Col span={8}>
-          <Form.Item className={styles.formItem} name="name" label="Name">
-            <Input placeholder="Input university name" />
+          <Form.Item className={styles.formItem} name="name">
+            <Input allowClear prefix={<BsBank />} placeholder="university..." />
           </Form.Item>
         </Col>
         <Col span={8}>
-          <Form.Item className={styles.formItem} name="country" label="Country">
-            <Input placeholder="Input country" />
+          <Form.Item className={styles.formItem} name="country">
+            <Input allowClear prefix={<BsGeoAlt />} placeholder="country..." />
           </Form.Item>
         </Col>
-        <Col span={8} className={styles.formFooter}>
-          <Button type="primary" htmlType="submit">
+        <Col span={8} className={styles.formActions}>
+          <Button icon={<AiOutlineSearch />} type="primary" htmlType="submit">
             Search
-          </Button>
-          <Button
-            onClick={() => {
-              form.resetFields()
-            }}
-          >
-            Clear
           </Button>
         </Col>
       </Row>

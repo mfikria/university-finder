@@ -1,5 +1,7 @@
+@import "styles/mixins";
+
 .scrollableList {
-  height: calc(100vh - 230px);
+  height: calc(100vh - 200px);
   overflow: auto;
   border: 1px solid rgba(140, 140, 140, 0.35);
   border-top: none;
@@ -7,6 +9,10 @@
 
   :global .infinite-scroll-component__outerdiv {
     padding: 0 16px;
+  }
+
+  :global .ant-list-item {
+    position: relative;
   }
 }
 
@@ -20,8 +26,9 @@
   padding: 8px 16px;
 
   .sortBy {
-    flex: 0 0 120px;
-
+    flex: 0 0 90px;
+  }
+  :global .ant-select {
     margin-left: 8px;
   }
 }
@@ -29,18 +36,31 @@
 .universityDescription, .universityWebsite {
   display: inline-flex;
   align-items: center;
+  font-size: 12px;
   svg {
     margin-right: 4px;
   }
 }
 
-.universityWebsite {
-  margin-left: 12px;
+.universityDescription {
+  margin-right: 12px;
 }
 
 .favoriteButton {
   svg {
     padding-top: 2px;
     padding-right: 2px;
+  }
+}
+
+@include mobile {
+  .favoriteButton {
+    position: absolute;
+    top: 12px;
+    right: 0;
+
+    span {
+      display: none;
+    }
   }
 }

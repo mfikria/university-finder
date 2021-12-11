@@ -1,7 +1,24 @@
+@import "styles/mixins";
+
 .siteHeader {
   position: fixed;
   z-index: 1;
   width: 100%;
+
+  :global .ant-menu {
+    height: 100%;
+  }
+
+  :global .ant-menu-item {
+    display: flex;
+    align-items: center;
+  }
+
+  :global .ant-menu-item-icon {
+    display: none;
+    width: 24px;
+    height: 24px;
+  }
 }
 
 .accountMenu {
@@ -18,5 +35,28 @@
   }
   a {
     color: white;
+  }
+}
+
+@include mobile {
+  .siteHeader {
+    padding: 0 24px;
+    :global .ant-menu-item-icon {
+      display: block;
+    }
+    :global .ant-menu-title-content {
+      display: none;
+    }
+  }
+  .email {
+    display: none;
+  }
+}
+
+@include desktop {
+  .siteHeader {
+    :global .ant-menu-title-content {
+      margin: 0 !important;
+    }
   }
 }

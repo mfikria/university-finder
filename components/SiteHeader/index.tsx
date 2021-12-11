@@ -3,12 +3,17 @@ import { Menu, Layout, Dropdown, Row, Col, Avatar } from 'antd'
 import { useRouter } from 'next/router'
 import { MenuInfo } from 'rc-menu/lib/interface'
 import { useSession } from 'next-auth/react'
-import { AiOutlineUser } from 'react-icons/ai'
+import {
+  AiOutlineUser,
+  AiOutlineHome,
+  AiOutlineNotification,
+} from 'react-icons/ai'
 import Link from 'next/link'
 
 type NavigationType = {
   title: string
   url: string
+  icon: any
 }
 
 const SiteHeader = () => {
@@ -17,10 +22,12 @@ const SiteHeader = () => {
   const navigations: NavigationType[] = [
     {
       url: '/',
+      icon: <AiOutlineHome />,
       title: 'Home',
     },
     {
       url: '/subscription',
+      icon: <AiOutlineNotification />,
       title: 'Subscription',
     },
   ]
@@ -48,7 +55,9 @@ const SiteHeader = () => {
             selectedKeys={[router.pathname]}
           >
             {navigations.map((nav) => (
-              <Menu.Item key={nav.url}>{nav.title}</Menu.Item>
+              <Menu.Item icon={nav.icon} key={nav.url}>
+                {nav.title}
+              </Menu.Item>
             ))}
           </Menu>
         </Col>
@@ -57,7 +66,7 @@ const SiteHeader = () => {
             <Dropdown overlay={menu}>
               <span>
                 <Avatar icon={<AiOutlineUser />} />
-                {session?.user?.email}
+                <span className={styles.email}>{session?.user?.email}</span>
               </span>
             </Dropdown>
           ) : (
