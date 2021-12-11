@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react'
-import { University } from '../types/university'
+import { University, UniversityFilterType } from '../types/university'
 
 const UNIVERSITY_API_URL = 'http://universities.hipolabs.com/search'
 
@@ -11,10 +11,10 @@ export const useUniversities = () => {
     []
   )
 
-  const fetchUniversities = async () => {
+  const fetchUniversities = async (filter?: UniversityFilterType) => {
     try {
       setLoading(true)
-      const { data } = await axios.get(UNIVERSITY_API_URL)
+      const { data } = await axios.get(UNIVERSITY_API_URL, { params: filter })
       setUniversities(data)
       // set initial visible data
       setVisibleUniversities(data.slice(0, 20))

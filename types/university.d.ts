@@ -1,3 +1,8 @@
+export type UniversityFilterType = {
+  name: string
+  country: string
+}
+
 export type University = {
   alpha_two_code: string
   country: string

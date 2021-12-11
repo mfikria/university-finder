@@ -1,0 +1,22 @@
+.form {
+  margin-bottom: 8px;
+}
+
+.formItem {
+  flex-direction: column;
+  margin-bottom: 0;
+
+  :global .ant-form-item-label {
+    text-align: left;
+    label {
+      font-size: 12px;
+    }
+  }
+}
+
+.formFooter {
+  text-align: right;
+  button {
+    margin-left: 8px;
+  }
+}
