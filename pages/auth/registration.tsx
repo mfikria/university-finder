@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form, Input, Checkbox, Button, Layout, notification } from 'antd'
 import styles from './registration.module.scss'
 import axios from 'axios'
@@ -40,9 +40,11 @@ const tailFormItemLayout = {
 
 const RegistrationForm = () => {
   const [form] = Form.useForm()
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
   const onSubmit = async (values: any) => {
     try {
+      setIsSubmitting(true)
       const { data: res } = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/registration`,
         {
@@ -50,7 +52,7 @@ const RegistrationForm = () => {
           password: values.password,
         }
       )
-      signIn('credentials', {
+      await signIn('credentials', {
         email: form.getFieldValue('email'),
         password: form.getFieldValue('password'),
         callbackUrl: '/',
@@ -71,17 +73,26 @@ const RegistrationForm = () => {
       notification.error({
         message,
       })
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
   return (
     <Layout.Content className={styles.siteLayout}>
       <div className={styles.siteLayoutBackground}>
-        <div className={styles.registrationForm}>
-          <Image src="/logo.svg" alt="Logo" className={styles.logo} />
+        <div className={styles.registrationFormWrapper}>
+          <Image
+            width={200}
+            height={50}
+            src="/logo.svg"
+            alt="Logo"
+            className={styles.logo}
+          />
           <Form
             {...formItemLayout}
             form={form}
+            className={styles.registrationForm}
             name="register"
             onFinish={onSubmit}
             initialValues={{
@@ -104,7 +115,7 @@ const RegistrationForm = () => {
                 },
               ]}
             >
-              <Input />
+              <Input readOnly={isSubmitting} />
             </Form.Item>
 
             <Form.Item
@@ -118,7 +129,7 @@ const RegistrationForm = () => {
               ]}
               hasFeedback
             >
-              <Input.Password />
+              <Input.Password readOnly={isSubmitting} />
             </Form.Item>
 
             <Form.Item
@@ -146,7 +157,7 @@ const RegistrationForm = () => {
                 }),
               ]}
             >
-              <Input.Password />
+              <Input.Password readOnly={isSubmitting} />
             </Form.Item>
 
             <Form.Item
@@ -162,12 +173,12 @@ const RegistrationForm = () => {
               ]}
               {...tailFormItemLayout}
             >
-              <Checkbox>
+              <Checkbox disabled={isSubmitting}>
                 I have read the <Link href="#">agreement</Link>
               </Checkbox>
             </Form.Item>
             <Form.Item {...tailFormItemLayout}>
-              <Button type="primary" htmlType="submit">
+              <Button loading={isSubmitting} type="primary" htmlType="submit">
                 Register
               </Button>
               Or <Link href="/api/auth/signin">login now!</Link>

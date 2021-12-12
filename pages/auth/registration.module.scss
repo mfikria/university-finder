@@ -12,9 +12,15 @@
   min-height: 380px;
 }
 
+.registrationFormWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .registrationForm {
   display: flex;
   flex-direction: column;
+  margin-top: 48px;
   :global .ant-btn {
     margin-right: 8px;
   }
@@ -28,5 +34,5 @@
 }
 
 .logo {
-  margin: 0 auto 48px;
+  margin: 0 auto !important;
 }

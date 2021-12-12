@@ -7,8 +7,10 @@ import {
   AiOutlineUser,
   AiOutlineHome,
   AiOutlineNotification,
+  AiOutlineStar,
 } from 'react-icons/ai'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 type NavigationType = {
   title: string
@@ -18,8 +20,10 @@ type NavigationType = {
 
 const SiteHeader = () => {
   const { data: session } = useSession()
+  const [navigations, setNavigations] = useState<Array<any>>([])
   const router = useRouter()
-  const navigations: NavigationType[] = [
+
+  const initialNavigations: any = [
     {
       url: '/',
       icon: <AiOutlineHome />,
@@ -31,6 +35,21 @@ const SiteHeader = () => {
       title: 'Subscription',
     },
   ]
+
+  useEffect(() => {
+    if (session) {
+      setNavigations([
+        ...initialNavigations,
+        {
+          url: '/favorites',
+          icon: <AiOutlineStar />,
+          title: 'Favorites',
+        },
+      ])
+    } else {
+      setNavigations(initialNavigations)
+    }
+  }, [session])
 
   const onClickMenu = (item: MenuInfo) => {
     router.push(item.key)

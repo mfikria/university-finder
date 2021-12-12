@@ -79,6 +79,7 @@ const UniversityList: NextComponentType = () => {
       notification.success({
         message: `${university.name} is successfully added to favorite`,
       })
+      console.log(favoriteUniversities)
     } catch (err: any) {
       notification.error({
         message: get(
@@ -92,9 +93,8 @@ const UniversityList: NextComponentType = () => {
 
   const isUniversityAddedToFavorite = (university: University) => {
     return (
-      favoriteUniversities.findIndex(
-        (u: any) => u.university?.name === university.name
-      ) > -1
+      favoriteUniversities.findIndex((u: any) => u?.name === university.name) >
+      -1
     )
   }
 
