@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotFound should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="layout404"
+  >
+    <div
+      class="title"
+    >
+      404
+    </div>
+    <h1
+      class="ant-typography"
+    >
+      Oopss... Page Not Found
+    </h1>
+    <button
+      class="ant-btn"
+      type="button"
+    >
+      <a
+        href="/"
+      >
+        Back to home
+      </a>
+    </button>
+  </div>
+</DocumentFragment>
+`;

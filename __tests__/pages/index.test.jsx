@@ -4,9 +4,7 @@
 
 import React from 'react'
 import { render, act } from '@testing-library/react'
-import Home from '../pages/index'
-
-let container
+import Home from '../../pages'
 
 const mockSession = {
   user: {
@@ -29,7 +27,7 @@ const useUniversities = () => ({
   fetchFavoriteUniversities: jest.fn(),
 })
 
-jest.mock('../hooks/university', () => ({
+jest.mock('../../hooks/university', () => ({
   useUniversities
 }));
 
@@ -49,22 +47,6 @@ jest.mock('next/router', () => ({
 }))
 
 describe('Home', () => {
-  beforeAll(() => {
-    Object.defineProperty(window, "matchMedia", {
-      writable: true,
-      value: jest.fn().mockImplementation(query => ({
-        matches: false,
-        media: query,
-        onchange: null,
-        addListener: jest.fn(), // Deprecated
-        removeListener: jest.fn(), // Deprecated
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
-        dispatchEvent: jest.fn(),
-      }))
-    });
-  });
-
   it('should match snapshot', () => {
     const { asFragment } = render(<Home />)
     expect(asFragment()).toMatchSnapshot()

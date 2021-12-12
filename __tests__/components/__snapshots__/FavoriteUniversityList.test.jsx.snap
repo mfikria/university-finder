@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FavoriteUniversityList should match snapshot 1`] = `
+<DocumentFragment>
+  <h3
+    class="ant-typography"
+  >
+    Your Favorite Universities
+  </h3>
+  <div
+    class="scrollableList"
+    id="scrollableList"
+  >
+    <div
+      class="ant-list ant-list-split ant-list-loading"
+    >
+      <div
+        class="ant-spin-nested-loading"
+      >
+        <div>
+          <div
+            class="ant-spin ant-spin-spinning"
+          >
+            <span
+              class="ant-spin-dot ant-spin-dot-spin"
+            >
+              <i
+                class="ant-spin-dot-item"
+              />
+              <i
+                class="ant-spin-dot-item"
+              />
+              <i
+                class="ant-spin-dot-item"
+              />
+              <i
+                class="ant-spin-dot-item"
+              />
+            </span>
+          </div>
+        </div>
+        <div
+          class="ant-spin-container ant-spin-blur"
+        >
+          <div
+            style="min-height: 53px;"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
