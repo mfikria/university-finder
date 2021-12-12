@@ -7,7 +7,7 @@ import { BsBank, BsGeoAlt } from 'react-icons/bs'
 import { AiOutlineSearch } from 'react-icons/ai'
 
 const UniversityFilter = ({
-  onSubmit = (_filter: UniversityFilterType) => {},
+  onSubmit = (_: UniversityFilterType) => {}, // eslint-disable-line
 }) => {
   const [form] = Form.useForm()
   const router = useRouter()
