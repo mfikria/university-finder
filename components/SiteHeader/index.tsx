@@ -55,10 +55,19 @@ const SiteHeader = () => {
     router.push(item.key)
   }
 
-  const menu = (
+  const menu = session ? (
     <Menu>
       <Menu.Item>
         <Link href="/api/auth/signout">Logout</Link>
+      </Menu.Item>
+    </Menu>
+  ) : (
+    <Menu>
+      <Menu.Item>
+        <Link href="/api/auth/signin">LOGIN</Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link href="/auth/registration">REGISTER</Link>
       </Menu.Item>
     </Menu>
   )
@@ -81,16 +90,14 @@ const SiteHeader = () => {
           </Menu>
         </Col>
         <Col className={styles.accountMenu}>
-          {session ? (
-            <Dropdown overlay={menu}>
-              <span>
-                <Avatar icon={<AiOutlineUser />} />
+          <Dropdown overlay={menu}>
+            <span>
+              <Avatar icon={<AiOutlineUser />} />
+              {session && (
                 <span className={styles.email}>{session?.user?.email}</span>
-              </span>
-            </Dropdown>
-          ) : (
-            <Link href="/api/auth/signin">LOGIN</Link>
-          )}
+              )}
+            </span>
+          </Dropdown>
         </Col>
       </Row>
     </Layout.Header>
