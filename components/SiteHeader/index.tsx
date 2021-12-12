@@ -12,12 +12,6 @@ import {
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
-type NavigationType = {
-  title: string
-  url: string
-  icon: any
-}
-
 const SiteHeader = () => {
   const { data: session } = useSession()
   const [navigations, setNavigations] = useState<Array<any>>([])
