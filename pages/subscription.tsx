@@ -36,12 +36,17 @@ const Subscription: NextPage = () => {
         message: `Email ${res.data?.email} is successfully subscribed`,
       })
     } catch (err: any) {
+      const type = get(err, 'response.data.errors[0].type')
+      const message =
+        type === 'unique violation'
+          ? 'Email has been subscribed before'
+          : get(
+              err,
+              'response.data.errors[0].message',
+              'Error happened. Please try again later!'
+            )
       notification.error({
-        message: get(
-          err,
-          'response.data.errors[0].message',
-          'Error happened. Please try again later!'
-        ),
+        message,
       })
     }
   }
