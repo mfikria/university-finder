@@ -1,31 +1,74 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Requirements
 
-First, run the development server:
+- NodeJS `>= v16.13.1`
+- Yarn `>=1.22.4`
+
+## Features
+
+- User can search the universities and sort it by name or country
+- User can register in `http://localhost:3000/auth/registration` and login via `http://localhost:3000/auth/signin`
+- Registered user can add favorites universities. The list can be accessed in `http://localhost:3000/favorites`
+- User can subsribe using their email address
+
+## Tech Stacks
+
+- `NextJS` as main framework
+- `Typescript` as language
+- `sequelize` for database adapter
+- `SQLite` as database layer
+- `husky` and `lint-staged`
+- https://next-auth.js.org/ as auth provider
+
+## Local Setup
+
+- Copy the environements
 
 ```bash
-npm run dev
-# or
+cp .env.sample .env
+```
+
+Note: we use `http://universities.hipolabs.com/search` by default for the API. If somehow the API is down/can not be accessed please run https://github.com/Hipo/university-domains-list in local and change the `NEXT_PUBLIC_UNIVERSITY_API_URL` env variable.
+
+- Use Node LTS
+
+```bash
+nvm use
+```
+
+- Install dependencies
+
+```bash
+yarn install
+```
+
+- Migrate Database
+
+```bash
+npx sequelize-cli db:migrate
+```
+
+The SQLite is used by default. The DB file will be appeared in `./db/database_development.sqlite`
+
+- Run the development server:
+
+```bash
 yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+## Available Routes
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- `/` : Home index
+- `/auth/signin` : Login page
+- `/auth/registration` : Registration page
+- `/api/auth/signout` : Logout page
+- `/subscription` : Subscription page
+- `/favorites` : Favorites page
 
 ## Deploy on Vercel
 

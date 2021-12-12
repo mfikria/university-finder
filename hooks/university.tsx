@@ -7,8 +7,6 @@ import {
   UniversitySortType,
 } from '../types/university'
 
-const UNIVERSITY_API_URL = 'http://universities.hipolabs.com/search'
-
 export const useUniversities = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [loadingFavorite, setLoadingFavorite] = useState<boolean>(false)
@@ -26,7 +24,10 @@ export const useUniversities = () => {
   ) => {
     try {
       setLoading(true)
-      const { data } = await axios.get(UNIVERSITY_API_URL, { params: filter })
+      const { data } = await axios.get(
+        process.env.NEXT_PUBLIC_UNIVERSITY_API_URL as string,
+        { params: filter }
+      )
       const sortedUniversities: University[] = orderBy(
         data,
         [sort.field],
