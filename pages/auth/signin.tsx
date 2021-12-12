@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { Form, Input, Checkbox, Button, Layout, notification } from 'antd'
-import styles from './registration.module.scss'
-import axios from 'axios'
+import { Form, Input, Alert, Layout, Button, notification } from 'antd'
+import styles from './signin.module.scss'
 import get from 'lodash/get'
 import { signIn } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const formItemLayout = {
   labelCol: {
@@ -40,38 +40,24 @@ const tailFormItemLayout = {
 
 const RegistrationForm = () => {
   const [form] = Form.useForm()
+  const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
   const onSubmit = async (values: any) => {
     try {
       setIsSubmitting(true)
-      const { data: res } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/registration`,
-        {
-          email: values.email,
-          password: values.password,
-        }
-      )
       await signIn('credentials', {
         email: form.getFieldValue('email'),
         password: form.getFieldValue('password'),
         callbackUrl: '/',
       })
-      notification.success({
-        message: `Email ${res.data?.email} is successfully registered`,
-      })
     } catch (err: any) {
-      const type = get(err, 'response.data.errors[0].type')
-      const message =
-        type === 'unique violation'
-          ? 'Email has been registered. Please login.'
-          : get(
-              err,
-              'response.data.errors[0].message',
-              'Error happened. Please try again later!'
-            )
       notification.error({
-        message,
+        message: get(
+          err,
+          'response.data.errors[0].message',
+          'Error happened. Please try again later!'
+        ),
       })
     } finally {
       setIsSubmitting(false)
@@ -81,7 +67,7 @@ const RegistrationForm = () => {
   return (
     <Layout.Content className={styles.siteLayout}>
       <div className={styles.siteLayoutBackground}>
-        <div className={styles.registrationFormWrapper}>
+        <div className={styles.signinFormWrapper}>
           <Image
             width={200}
             height={50}
@@ -89,11 +75,18 @@ const RegistrationForm = () => {
             alt="Logo"
             className={styles.logo}
           />
+          {router.query.error && (
+            <Alert
+              description="Sign in failed. Check the details you provided are correct."
+              type="error"
+              closable
+            />
+          )}
           <Form
             {...formItemLayout}
             form={form}
-            className={styles.registrationForm}
-            name="register"
+            className={styles.signinForm}
+            name="signin"
             onFinish={onSubmit}
             initialValues={{
               prefix: '86',
@@ -130,57 +123,11 @@ const RegistrationForm = () => {
             >
               <Input.Password readOnly={isSubmitting} />
             </Form.Item>
-
-            <Form.Item
-              name="confirm"
-              label="Confirm Password"
-              dependencies={['password']}
-              hasFeedback
-              rules={[
-                {
-                  required: true,
-                  message: 'Please confirm your password!',
-                },
-                ({ getFieldValue }) => ({
-                  validator(_, value) {
-                    if (!value || getFieldValue('password') === value) {
-                      return Promise.resolve()
-                    }
-
-                    return Promise.reject(
-                      new Error(
-                        'The two passwords that you entered do not match!'
-                      )
-                    )
-                  },
-                }),
-              ]}
-            >
-              <Input.Password readOnly={isSubmitting} />
-            </Form.Item>
-
-            <Form.Item
-              name="agreement"
-              valuePropName="checked"
-              rules={[
-                {
-                  validator: (_, value) =>
-                    value
-                      ? Promise.resolve()
-                      : Promise.reject(new Error('Should accept agreement')),
-                },
-              ]}
-              {...tailFormItemLayout}
-            >
-              <Checkbox disabled={isSubmitting}>
-                I have read the <Link href="#">agreement</Link>
-              </Checkbox>
-            </Form.Item>
             <Form.Item {...tailFormItemLayout}>
               <Button loading={isSubmitting} type="primary" htmlType="submit">
-                Register
+                Login
               </Button>
-              Or <Link href="/auth/signin">login now!</Link>
+              Or <Link href="/auth/registration">Register now!</Link>
             </Form.Item>
           </Form>
         </div>

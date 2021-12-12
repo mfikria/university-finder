@@ -64,7 +64,7 @@ const SiteHeader = () => {
   ) : (
     <Menu>
       <Menu.Item>
-        <Link href="/api/auth/signin">LOGIN</Link>
+        <Link href="/auth/signin">LOGIN</Link>
       </Menu.Item>
       <Menu.Item>
         <Link href="/auth/registration">REGISTER</Link>

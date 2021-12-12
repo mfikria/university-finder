@@ -1,0 +1,42 @@
+@import "styles/mixins";
+
+.siteLayout {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.siteLayoutBackground {
+  padding-top: 24px;
+  min-height: 380px;
+}
+
+.signinFormWrapper {
+  display: flex;
+  flex-direction: column;
+
+  :global .ant-alert {
+    margin-top: 24px;
+  }
+}
+
+.signinForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 48px;
+  :global .ant-btn {
+    margin-right: 8px;
+  }
+
+  @include mobile {
+    :global .ant-btn {
+      width: 100%;
+      margin-right: 0;
+    }
+  }
+}
+
+.logo {
+  margin: 0 auto !important;
+}

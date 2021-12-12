@@ -22,6 +22,9 @@ export const authOptions: NextAuthOptions = {
     // A secret to use for key generation (you should set this explicitly)
     secret: process.env.SECRET,
   },
+  pages: {
+    signIn: '/auth/signin',
+  },
   providers: [
     // https://next-auth.js.org/configuration/providers/credentials
     CredentialsProvider({
