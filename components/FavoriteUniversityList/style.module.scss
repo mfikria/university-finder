@@ -2,34 +2,14 @@
 
 .scrollableList {
   height: calc(100vh - 200px);
+  padding: 0 16px;
   overflow: auto;
   border: 1px solid rgba(140, 140, 140, 0.35);
   border-top: none;
   background: white;
 
-  :global .infinite-scroll-component__outerdiv {
-    padding: 0 16px;
-  }
-
   :global .ant-list-item {
     position: relative;
-  }
-}
-
-.listHeader {
-  display: flex;
-  align-items: center;
-  justify-content: right;
-  width: 100%;
-  background: white;
-  border: 1px solid rgba(140, 140, 140, 0.35);
-  padding: 8px 16px;
-
-  .sortBy {
-    flex: 0 0 90px;
-  }
-  :global .ant-select {
-    margin-left: 8px;
   }
 }
 
@@ -44,27 +24,4 @@
 
 .universityDescription {
   margin-right: 12px;
-}
-
-.favoriteButton {
-  svg {
-    padding-top: 2px;
-    padding-right: 2px;
-  }
-}
-
-.addedFavoriteButton {
-  cursor: default;
-}
-
-@include mobile {
-  .favoriteButton, .addedFavoriteButton {
-    position: absolute;
-    top: 12px;
-    right: 0;
-
-    span {
-      display: none;
-    }
-  }
 }
