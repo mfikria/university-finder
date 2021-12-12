@@ -4,7 +4,7 @@ import styles from './style.module.scss'
 import { useRouter } from 'next/router'
 import { UniversityFilterType } from '../../types/university'
 import { BsBank, BsGeoAlt } from 'react-icons/bs'
-import { AiOutlineSearch, AiOutlineClose } from 'react-icons/ai'
+import { AiOutlineSearch } from 'react-icons/ai'
 
 const UniversityFilter = ({
   onSubmit = (_filter: UniversityFilterType) => {},

@@ -47,8 +47,8 @@ const RegistrationForm = () => {
     try {
       setIsSubmitting(true)
       await signIn('credentials', {
-        email: form.getFieldValue('email'),
-        password: form.getFieldValue('password'),
+        email: values.email,
+        password: values.password,
         callbackUrl: '/',
       })
     } catch (err: any) {
