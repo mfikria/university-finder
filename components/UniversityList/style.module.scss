@@ -53,8 +53,12 @@
   }
 }
 
+.addedFavoriteButton {
+  cursor: default;
+}
+
 @include mobile {
-  .favoriteButton {
+  .favoriteButton, .addedFavoriteButton {
     position: absolute;
     top: 12px;
     right: 0;

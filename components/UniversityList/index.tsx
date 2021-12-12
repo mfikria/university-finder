@@ -1,7 +1,7 @@
 import type { NextComponentType } from 'next'
 import trim from 'lodash/trim'
 import React, { useEffect, useState } from 'react'
-import { List, Skeleton, Divider, Select, Button } from 'antd'
+import { List, Skeleton, Divider, Select, Button, notification } from 'antd'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import {
   BsFillGeoAltFill,
@@ -19,6 +19,7 @@ import {
 import UniversityFilter from '../UniversityFilter'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
+import get from 'lodash/get'
 
 const UniversityList: NextComponentType = () => {
   const { data: session } = useSession()
@@ -33,6 +34,9 @@ const UniversityList: NextComponentType = () => {
     sortUniversities,
     visibleUniversities,
     total,
+    addToFavorite,
+    favoriteUniversities,
+    fetchFavoriteUniversities,
   } = useUniversities()
 
   useEffect(() => {
@@ -41,6 +45,12 @@ const UniversityList: NextComponentType = () => {
       { field: sortBy.valueOf(), type: sortType } as UniversitySortType
     )
   }, [router])
+
+  useEffect(() => {
+    if (session) {
+      fetchFavoriteUniversities()
+    }
+  }, [session])
 
   useEffect(() => {
     sortUniversities({
@@ -61,6 +71,31 @@ const UniversityList: NextComponentType = () => {
       country: trim(filter.country),
     }
     router.push(router)
+  }
+
+  const addToFavoriteUniversities = async (university: University) => {
+    try {
+      await addToFavorite(university)
+      notification.success({
+        message: `${university.name} is successfully added to favorite`,
+      })
+    } catch (err: any) {
+      notification.error({
+        message: get(
+          err,
+          'response.data.errors[0].message',
+          'Error happened. Please try again later!'
+        ),
+      })
+    }
+  }
+
+  const isUniversityAddedToFavorite = (university: University) => {
+    return (
+      favoriteUniversities.findIndex(
+        (u: any) => u.university?.name === university.name
+      ) > -1
+    )
   }
 
   return (
@@ -120,14 +155,30 @@ const UniversityList: NextComponentType = () => {
                     title={university.name}
                     description={description}
                   />
-                  <Button
-                    disabled={!session}
-                    className={styles.favoriteButton}
-                    size="small"
-                    icon={<BsFillStarFill />}
-                  >
-                    Add to Favorite
-                  </Button>
+                  {isUniversityAddedToFavorite(university) ? (
+                    <Button
+                      type="primary"
+                      ghost
+                      className={styles.addedFavoriteButton}
+                      size="small"
+                      icon={<BsFillStarFill />}
+                    >
+                      Added to Favorite
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled={!session}
+                      className={styles.favoriteButton}
+                      size="small"
+                      icon={<BsFillStarFill />}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        addToFavoriteUniversities(university)
+                      }}
+                    >
+                      Add to Favorite
+                    </Button>
+                  )}
                 </List.Item>
               )
             }}

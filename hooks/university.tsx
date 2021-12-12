@@ -12,6 +12,9 @@ const UNIVERSITY_API_URL = 'http://universities.hipolabs.com/search'
 export const useUniversities = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [universities, setUniversities] = useState<University[]>([])
+  const [favoriteUniversities, setFavoriteUniversities] = useState<
+    University[]
+  >([])
   const [visibleUniversities, setVisibleUniversities] = useState<University[]>(
     []
   )
@@ -52,6 +55,27 @@ export const useUniversities = () => {
     )
   }
 
+  const addToFavorite = async (university: University) => {
+    const { data: res } = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/favorite-universities`,
+      {
+        university,
+      }
+    )
+    setFavoriteUniversities([...favoriteUniversities, res.data])
+  }
+
+  const fetchFavoriteUniversities = async () => {
+    try {
+      const { data: res } = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/favorite-universities`
+      )
+      setFavoriteUniversities(res.data)
+    } catch (_err) {
+      setFavoriteUniversities([])
+    }
+  }
+
   return {
     total: universities.length,
     loading,
@@ -59,5 +83,8 @@ export const useUniversities = () => {
     loadMoreUniversities,
     visibleUniversities,
     sortUniversities,
+    addToFavorite,
+    favoriteUniversities,
+    fetchFavoriteUniversities,
   }
 }
