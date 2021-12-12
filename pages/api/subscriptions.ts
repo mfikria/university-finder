@@ -9,8 +9,6 @@ export default handler.post(
   async (req: NextApiRequest, res: NextApiResponse) => {
     const { body } = req
     const { email } = body
-    console.log(email)
-    console.log(models.Subscription)
 
     try {
       const subscription = await models.Subscription.create({
