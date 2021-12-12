@@ -61,6 +61,15 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
+## Available Commands
+
+- `yarn dev` : Run development in local
+- `yarn build` : Build app
+- `yarn start` : Start app production mode
+- `yarn lint` : Lint the code
+- `yarn test` : Testing the code
+- `yarn test --coverage` : Testing the code with coverage
+
 ## Available Routes
 
 - `/` : Home index

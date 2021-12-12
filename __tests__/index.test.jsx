@@ -3,23 +3,70 @@
  */
 
 import React from 'react'
-import renderer from 'react-test-renderer'
-import { render, screen } from '@testing-library/react'
+import { render, act } from '@testing-library/react'
 import Home from '../pages/index'
 
+let container
+
+const mockSession = {
+  user: {
+    image: null,
+    name: "John",
+    email: "john@email.com",
+  },
+  expires: 123213139,
+}
+
+const useUniversities = () => ({
+  loading: false,
+  fetchUniversities: jest.fn(),
+  loadMoreUniversities: jest.fn(),
+  sortUniversities: jest.fn(),
+  visibleUniversities: [],
+  total: 0,
+  addToFavorite: jest.fn(),
+  favoriteUniversities: [],
+  fetchFavoriteUniversities: jest.fn(),
+})
+
+jest.mock('../hooks/university', () => ({
+  useUniversities
+}));
+
+jest.mock('rc-menu', () => () => <div>rc-menu-mock</div>)
+jest.mock('next-auth/react', () => ({
+  useSession: jest.fn(() => ({
+    data: mockSession,
+    status: 'loading'
+  }))
+}))
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(() => ({
+    pathname: '',
+    query: {},
+    push: jest.fn()
+  }))
+}))
+
 describe('Home', () => {
-  it('renders homepage unchanged', () => {
-    const tree = renderer.create(<Home />).toJSON()
-    expect(tree).toMatchSnapshot()
-  })
+  beforeAll(() => {
+    Object.defineProperty(window, "matchMedia", {
+      writable: true,
+      value: jest.fn().mockImplementation(query => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: jest.fn(), // Deprecated
+        removeListener: jest.fn(), // Deprecated
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn(),
+        dispatchEvent: jest.fn(),
+      }))
+    });
+  });
 
-  it('renders a heading', () => {
-    render(<Home />)
-
-    const heading = screen.getByRole('heading', {
-      name: /welcome to next\.js!/i,
-    })
-
-    expect(heading).toBeInTheDocument()
+  it('should match snapshot', () => {
+    const { asFragment } = render(<Home />)
+    expect(asFragment()).toMatchSnapshot()
   })
 })
